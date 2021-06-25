@@ -8,4 +8,4 @@ The documents are provided to the best of our ability based on any public API do
 
 This site is deployed using [Github Pages](https://pages.github.com/).
 
-See it in action [here](https://open-api.getshowcase.io/open-api/index.html).
+See it in action [here](https://open-api.getshowcase.io).
