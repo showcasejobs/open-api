@@ -1,0 +1,31 @@
+organization:
+  name: OpenAI-Organization
+  in: header
+  description: |
+    For users who belong to multiple organizations, you can pass a header to specify which organization is used for an API request.
+    Usage from these API requests will count against the specified organization's subscription quota.
+    [See More](https://beta.openai.com/docs/api-reference/authentication)
+  schema:
+    type: string
+    example: org-txL1ffyPuQ0esaon59h9DAdE
+  required: false
+
+engineId:
+  name: engineId
+  in: path
+  description: |
+    The ID of the engine to use for this request.
+  schema:
+    type: string
+    example: davinci
+  required: true
+
+fileId:
+  name: fileId
+  in: path
+  description: |
+    The ID of the file to use for this request.
+  schema:
+    type: string
+    example: file-XjGxS3KTG0uNmNOK362iJua3
+  required: true

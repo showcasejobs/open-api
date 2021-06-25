@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: Open AI
+  description: |
+    Open AI API
+
+    This OpenAPI document was written based on the api documentation available [here](https://beta.openai.com/docs/api-reference/introduction).
+
+    It is currently maintained by [Showcase](https://getshowcase.io/).
+
+    The source code for this document can be found [here](https://github.com/showcasejobs/open-api).
+  version: 1.0.0
+servers:
+  - url: 'https://api.openai.com/v1/'
+
+components:
+  parameters:
+    organization:
+      $ref: ./parameters.yaml#/organization
+    engineId:
+      $ref: ./parameters.yaml#/engineId
+    fileId:
+      $ref: ./parameters.yaml#/fileId
+  schemas:
+    engine:
+      $ref: ./schemas.yaml#/engine
+    file:
+      $ref: ./schemas.yaml#/file
+    logitBias:
+      $ref: ./schemas.yaml#/logitBias
+    purpose:
+      $ref: ./schemas.yaml#/purpose
+  securitySchemes:
+    bearer:
+      type: http
+      description: |
+        API Key attached as Authorization Header with Bearer format.
+        [See more](https://beta.openai.com/docs/api-reference/authentication)
+      scheme: bearer
+    basic:
+      type: http
+      description: |
+        API Key attached as password field in Authorization Header with Basic format.
+        [See more](https://beta.openai.com/docs/api-reference/authentication)
+      scheme: basic
+
+tags:
+  - name: Engines
+    description: |
+      Engines describe and provide access to the various models available in the API.
+      You can refer to the [Engines](https://beta.openai.com/docs/engines) documentation to understand what engines are available and the differences between them.
+
+      [See More](https://beta.openai.com/docs/api-reference/engines)
+  - name: Completions
+    description: |
+      Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of alternative tokens at each position.
+  - name: Searches
+    description: |
+      Given a query and a set of documents or labels, the model ranks each document based on its semantic similarity to the provided query.
+
+      Related guide: [Search](https://beta.openai.com/docs/guides/search)
+
+      [See More](https://beta.openai.com/docs/api-reference/searches)
+  - name: Classifications
+    description: |
+      Given a query and a set of labeled examples, the model will predict the most likely label for the query.
+      Useful as a drop-in replacement for any ML classification or text-to-label task.
+
+      Related guide: [Classify text](https://beta.openai.com/docs/guides/classifications)
+
+      [See More](https://beta.openai.com/docs/api-reference/classifications)
+  - name: Answers
+    description: |
+      Given a question, a set of documents, and some examples, the API generates an answer to the question based on the information in the set of documents.
+      This is useful for question-answering applications on sources of truth, like company documentation or a knowledge base.
+
+      Related guide: [Answer questions](https://beta.openai.com/docs/guides/answers)
+  - name: Files
+    description: |
+      Files are used to upload documents that can be used across features like [Answers](https://beta.openai.com/docs/api-reference/answers), [Search](https://beta.openai.com/docs/api-reference/searches), and [Classifications](https://beta.openai.com/docs/api-reference/classifications).
+
+      [See More](https://beta.openai.com/docs/api-reference/files)
+
+paths:
+
+  /answers:
+    $ref: ./paths/answers.yaml#/base
+
+  /classifications:
+    $ref: ./paths/classifications.yaml#/base
+
+  /engines:
+    $ref: ./paths/engines.yaml#/base
+  /engines/{engineId}:
+    $ref: ./paths/engines.yaml#/engineId
+
+  /engines/{engineId}/completions:
+    $ref: ./paths/completions.yaml#/base
+
+  /engines/{engineId}/search:
+    $ref: ./paths/searches.yaml#/base
+
+  /files:
+    $ref: ./paths/files.yaml#/base
+  /files/{fileId}:
+    $ref: ./paths/files.yaml#/fileId

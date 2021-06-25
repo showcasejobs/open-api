@@ -1,0 +1,52 @@
+base:
+
+  get:
+
+    operationId: engines.list
+    summary: List engines
+    description: |
+      Lists the currently available engines, and provides basic information about each one such as the owner and availability.
+
+      [See More](https://beta.openai.com/docs/api-reference/engines/list)
+    tags:
+      - Engines
+    security:
+      - bearer: []
+      - basic: []
+    parameters:
+      - $ref: ../index.yaml#/components/parameters/organization
+    responses:
+      200:
+        description: Ok
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: ../index.yaml#/components/schemas/engine
+
+engineId:
+
+  get:
+
+    operationId: engines.get
+    summary: Retrieve engine
+    description: |
+      Retrieves an engine instance, providing basic information about the engine such as the owner and availability.
+
+      [See More](https://beta.openai.com/docs/api-reference/engines/retrieve)
+    tags:
+      - Engines
+    security:
+      - bearer: []
+      - basic: []
+    parameters:
+      - $ref: ../index.yaml#/components/parameters/organization
+      - $ref: ../index.yaml#/components/parameters/engineId
+    responses:
+      200:
+        description: Ok
+        content:
+          application/json:
+            schema:
+              $ref: ../index.yaml#/components/schemas/engine

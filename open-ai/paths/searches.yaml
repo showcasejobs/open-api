@@ -1,0 +1,124 @@
+base:
+
+  post:
+
+    operationId: engines.searches.create
+    summary: Create search
+    description: |
+      The search endpoint computes similarity scores between provided query and documents.
+      Documents can be passed directly to the API if there are no more than 200 of them.
+
+      To go beyond the 200 document limit, documents can be processed offline and then used for efficient retrieval at query time.
+      When `file` is set, the search endpoint searches over all the documents in the given file and returns up to the `max_rerank` number of documents.
+      These documents will be returned along with their search scores.
+
+      The similarity score is a positive score that usually ranges from 0 to 300 (but can sometimes go higher), where a score above 200 usually means the document is semantically similar to the query.
+
+      [See More](https://beta.openai.com/docs/api-reference/searches/create)
+    tags:
+      - Searches
+    security:
+      - bearer: []
+      - basic: []
+    parameters:
+      - $ref: ../index.yaml#/components/parameters/organization
+      - $ref: ../index.yaml#/components/parameters/engineId
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              documents:
+                type: array
+                items:
+                  type: string
+                description: |
+                  Up to 200 documents to search over, provided as a list of strings.
+
+                  The maximum document length (in tokens) is 2034 minus the number of tokens in the query.
+
+                  You should specify either `documents` or a `file`, but not both.
+                example:
+                  - White House
+                  - hospital
+                  - school
+              file:
+                type: string
+                description: |
+                  The ID of an uploaded file that contains documents to search over.
+
+                  You should specify either `documents` or a `file`, but not both.
+                example: file-ccdDZrC3iZVNiQVeEA6Z66wf
+              query:
+                type: string
+                description: |
+                  Query to search against the documents.
+                example: the president
+
+              max_rerank:
+                type: integer
+                default: 200
+                minimum: 1
+                description: |
+                  The maximum number of documents to be re-ranked and returned by search.
+
+                  This flag only takes effect when `file` is set.
+
+              return_metadata:
+                type: boolean
+                default: false
+                description: |
+                  A special boolean flag for showing metadata.
+                  If set to true, each document entry in the returned JSON will contain a "metadata" field.
+
+                  This flag only takes effect when `file` is set.
+            additionalProperties: false
+            required:
+              - query
+    responses:
+      200:
+        description: Ok
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                object:
+                  type: string
+                  example: list
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      document:
+                        type: integer
+                        example: 215.412
+                      object:
+                        type: string
+                        example: search_result
+                      score:
+                        type: number
+                        example: 215.412
+                      metadata: {}
+                    additionalProperties: false
+                    required:
+                      - document
+                      - object
+                      - score
+                  example:
+                    - document: 0
+                      object: search_result
+                      score: 215.412
+                    - document: 1
+                      object: search_result
+                      score: 40.316
+                    - document: 2
+                      object: search_result
+                      score:  55.226
+              additionalProperties: false
+              required:
+                - object
+                - data

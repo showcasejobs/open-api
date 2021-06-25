@@ -1,0 +1,5 @@
+exclude:
+  - .gitignore
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE

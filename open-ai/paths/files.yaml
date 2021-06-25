@@ -1,0 +1,119 @@
+base:
+
+  get:
+
+    operationId: files.list
+    summary: List files
+    description: |
+      Returns a list of files that belong to the user's organization.
+
+      [See More](https://beta.openai.com/docs/api-reference/files/list)
+    tags:
+      - Files
+    security:
+      - bearer: []
+      - basic: []
+    parameters:
+      - $ref: ../index.yaml#/components/parameters/organization
+    responses:
+      200:
+        description: Ok
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: ../index.yaml#/components/schemas/file
+
+  post:
+
+    operationId: files.upload
+    summary: Upload file
+    description: |
+      Upload a file that contains document(s) to be used across various endpoints/features.
+      Currently, the size of all the files uploaded by one organization can be up to 1 GB.
+      Please contact us if you need to increase the storage limit.
+
+      [See More](https://beta.openai.com/docs/api-reference/files/upload)
+    tags:
+      - Files
+    security:
+      - bearer: []
+      - basic: []
+    parameters:
+      - $ref: ../index.yaml#/components/parameters/organization
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              file:
+                type: string
+                format: binary
+                description:
+                  Name of the JSON Lines file to be uploaded.
+
+                  If the purpose is set to "search" or "answers", each line is a JSON record with a "text" field and an optional "metadata" field.
+                  Only "text" field will be used for search.
+                  Specially, when the purpose is "answers", "\n" is used as a delimiter to chunk contents in the "text" field into multiple documents for finer-grained matching.
+
+                  If the purpose is set to "classifications", each line is a JSON record with a single training example with "text" and "label" fields along with an optional "metadata" field.
+              purpose:
+                $ref: ../index.yaml#/components/schemas/purpose
+            additionalProperties: false
+            required:
+              - file
+    responses:
+      200:
+        description: Ok
+        content:
+          application/json:
+            schema:
+              $ref: ../index.yaml#/components/schemas/file
+
+fileId:
+
+  get:
+
+    operationId: files.get
+    summary: Retrieve file
+    description: |
+      Returns information about a specific file.
+
+      [See More](https://beta.openai.com/docs/api-reference/files/retrieve)
+    tags:
+      - Files
+    security:
+      - bearer: []
+      - basic: []
+    parameters:
+      - $ref: ../index.yaml#/components/parameters/organization
+      - $ref: ../index.yaml#/components/parameters/fileId
+    responses:
+      200:
+        description: Ok
+        content:
+          application/json:
+            schema:
+              $ref: ../index.yaml#/components/schemas/file
+
+  delete:
+    operationId: files.remove
+    summary: Delete file
+    description: |
+      Delete a file.
+
+      [See More](https://beta.openai.com/docs/api-reference/files/delete)
+    tags:
+      - Files
+    security:
+      - bearer: []
+      - basic: []
+    parameters:
+      - $ref: ../index.yaml#/components/parameters/organization
+      - $ref: ../index.yaml#/components/parameters/fileId
+    responses:
+      204:
+        description: Removed
