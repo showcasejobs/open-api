@@ -14,7 +14,7 @@ base:
 
       [See More](https://beta.openai.com/docs/api-reference/classifications/create)
     tags:
-      - Searches
+      - Classifications
     security:
       - bearer: []
       - basic: []
@@ -147,8 +147,10 @@ base:
               type: object
               properties:
                 completion:
-                  type: string
-                  example: cmpl-2euN7lUVZ0d4RKbQqRV79IiiE6M1f
+                  oneOf:
+                    - type: string
+                      example: cmpl-2euVa1kmKUuLpSX600M41125Mo9NI
+                    - $ref: ../index.yaml#/components/schemas/completion
                 label:
                   type: string
                   example: Negative

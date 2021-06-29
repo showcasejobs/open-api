@@ -22,6 +22,8 @@ components:
     fileId:
       $ref: ./parameters.yaml#/fileId
   schemas:
+    completion:
+      $ref: ./schemas.yaml#/completion
     engine:
       $ref: ./schemas.yaml#/engine
     file:

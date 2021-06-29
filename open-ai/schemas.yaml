@@ -1,3 +1,52 @@
+completion:
+  type: object
+  properties:
+    id:
+      type: string
+      example: cmpl-uqkvlQyYK7bGYrRHQ0eXlWi7
+    object:
+      type: string
+      example: text_completion
+    created:
+      type: integer
+      description: Unix Seconds.
+      example: 1624492800
+    model:
+      type: string
+      example: davinci:2020-05-03
+    choices:
+      type: array
+      items:
+        type: object
+        properties:
+          text:
+            type: string
+          index:
+            type: integer
+          logprobs:
+            type: integer
+            nullable: true
+          finish_reason:
+            type: string
+        additionalProperties: false
+        required:
+          - text
+          - index
+          - logprobs
+          - finish_reason
+      example:
+        - text: " there was a girl who"
+          index: 0
+          logprobs: null
+          finish_reason: length
+  additionalProperties: false
+  required:
+    - id
+    - object
+    - created
+    - model
+    - choices
+
 engine:
   type: object
   properties:
@@ -12,12 +61,27 @@ engine:
       example: openai
     ready:
       type: boolean
+    created:
+      type: integer
+      description: Unix Seconds.
+      nullable: true
+      example: 1624492800
+    max_replicas:
+      type: integer
+      nullable: true
+    ready_replicas:
+      type: boolean
+      nullable: true
+    # replicas? permissions?
   additionalProperties: false
   required:
     - id
     - object
     - owner
     - ready
+    - created
+    - max_replicas
+    - ready_replicas
 
 file:
   type: object
@@ -34,7 +98,7 @@ file:
     created_at:
       type: integer
       description: Unix Seconds.
-      example: 1613677385
+      example: 1624492800
     filename:
       type: string
       example: train.jsonl

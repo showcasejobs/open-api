@@ -65,6 +65,7 @@ base:
             additionalProperties: false
             required:
               - file
+              - purpose
     responses:
       200:
         description: Ok
