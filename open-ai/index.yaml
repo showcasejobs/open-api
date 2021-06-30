@@ -9,6 +9,8 @@ info:
     It is currently maintained by [Showcase](https://getshowcase.io/).
 
     The source code for this document can be found [here](https://github.com/showcasejobs/open-api).
+
+    **NOTE** The naming can appear confusing, as they are _very_ similar. `OpenAI` (no `P`) is the "GPT-3 as a service" AI platform. `OpenAPI` (with a `P`) is a structured and machine-friendly way of defining RESTful API services.
   version: 1.0.0
 servers:
   - url: 'https://api.openai.com/v1/'
