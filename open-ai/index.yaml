@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: Open AI
+  title: OpenAI
   description: |
-    Open AI API
+    OpenAI API
 
     This OpenAPI document was written based on the api documentation available [here](https://beta.openai.com/docs/api-reference/introduction).
 
