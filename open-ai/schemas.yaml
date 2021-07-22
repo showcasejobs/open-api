@@ -104,6 +104,9 @@ file:
       example: train.jsonl
     purpose:
       $ref: '#/purpose'
+    status:
+      type: string
+      example: processed
   additionalProperties: false
   required:
     - id
