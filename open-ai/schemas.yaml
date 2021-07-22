@@ -115,6 +115,7 @@ file:
     - created_at
     - filename
     - purpose
+    - status
 
 logitBias:
   type: object
