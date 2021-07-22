@@ -21,9 +21,17 @@ base:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: ../index.yaml#/components/schemas/file
+              type: object
+              properties:
+                object:
+                  type: string
+                data:
+                  type: array
+                  items:
+                    $ref: ../index.yaml#/components/schemas/file
+              required:
+                - object
+                - data
 
   post:
 
